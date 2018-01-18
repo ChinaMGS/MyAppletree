@@ -1,0 +1,71 @@
+<!DOCTYPE html>  
+<html>  
+  
+    <head>  
+        <meta charset="utf-8" />  
+        <title>时间戳与时间字符串的转化</title>  
+    </head>  
+  
+    <body>  
+        <h1>请打开控制台看实例输出的结果</h1>  
+    </body>  
+  <script type="text/javascript" src="js/jquery.min.js">
+  	
+  </script>
+      
+  <script>
+var time='1515056493';
+var newtime=time*1000;//这里需要注意js时间戳精确到毫秒,所以要乘以1000后转换.
+ 
+//方法一(格式受限于用户系统,不推荐):
+var timestr=new Date(newtime);
+console.log(timestr);//输出格式Thu Jan 04 2018 17:01:33 GMT+0800 (中国标准时间)
+ 
+//方法二(推荐):
+function gettime(t){
+    var _time=new Date(t);
+    var   year=_time.getFullYear();//2017
+    var   month=_time.getMonth()+1;//7
+    var   date=_time.getDate();//10
+    var   hour=_time.getHours();//10
+    var   minute=_time.getMinutes();//56
+    var   second=_time.getSeconds();//15
+    return   year+"年"+month+"月"+date+"日   "+hour+":"+minute+":"+second;
+    //这里自己按自己需要的格式拼接
+}
+console.log(gettime(newtime));
+//输出2018年1月4日   17:1:33
+
+
+function getTime(nS) {     
+    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
+}     
+console.log(getTime(1515056493));
+ //输出 2018-1-4  下午5:01:33
+ 
+function getTime1(nS) {     
+    return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,17)
+}     
+console.log(getTime1(1515056493));
+//输出 2018年1月4日 下午5:01:
+
+function getTime2(nS) {     
+   return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
+}     
+console.log(getTime2(1515056493));
+//输出 2018年1月4日 下午5:01
+
+//以下的日期转时间戳
+var date = new Date('2017-11-23 18:55:49:123');
+time1 = date.getTime(time);
+console.log(time1);  //1511434549123
+time2 = date.valueOf(time);
+console.log(time2);
+time3 = Date.parse(date);
+console.log(time3); //1511434549000
+//第一、第二种：会精确到毫秒
+//第三种：只能精确到秒，毫秒将用0来代替
+
+
+</script>
+</html>  
